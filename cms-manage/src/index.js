@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 
 // 引入ant design
-import './assets/base.css'
+import './assets/base.less'
 
 // import Login from './pages/Login';
 import Router from './router';
