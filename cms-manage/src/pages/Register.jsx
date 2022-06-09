@@ -1,22 +1,32 @@
 import React from "react";
 // 引入ant内容
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 // 引入less
 import './less/login.less';
 // 引入图片
 import loginpic from '../assets/logo.png'
 // 引入跳转link
-import {Link} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+// 引入接口
+import { RegisterApi } from '../request/api'
 
 export default function Register() {
+    const navigate = useNavigate()
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
+    const onFinish = async (values) => {
+        const res = await RegisterApi({
+            username: values.username,
+            password: values.password
+        }) 
+        if (res.errCode === 0) {
+            message.success('注册成功!');
+            // 跳到登录页
+            setTimeout(() => navigate('/login'), 1500)
+            
+        } else {
+            message.error('用户已经存在!');
+        }
     };
 
     return (
@@ -29,7 +39,6 @@ export default function Register() {
                         remember: true,
                     }}
                     onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                 >
                     <Form.Item
