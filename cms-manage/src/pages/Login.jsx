@@ -1,18 +1,41 @@
 import React from "react";
 // 引入ant内容
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 // 引入less
 import './less/login.less';
 // 引入图片
 import loginpic from '../assets/logo.png'
 // 引入跳转link
-import {Link} from 'react-router-dom'
+import {Link ,useNavigate} from 'react-router-dom'
+// 引入登录接口
+import { LoginApi } from "../request/api";
 
 export default function Login() {
-
+    const navigate = useNavigate()
     const onFinish = (values) => {
         console.log('Success:', values);
+        LoginApi({
+            username: values.username,
+            password: values.password
+        }).then(res => {
+            console.log(res)
+            if (res.errCode === 0) {
+                message.success(res.message)
+                // 存储数据
+                localStorage.setItem('avatar', res.data.avatar)
+                localStorage.setItem('cms-token', res.data['cms-token'])
+                localStorage.setItem('editable', res.data.editable)
+                localStorage.setItem('player', res.data.player)
+                localStorage.setItem('username', res.data.username)
+                // 跳转
+                setTimeout(() => {
+                    navigate('/')
+                },1500)
+            } else {
+                message.error(res.message)
+            }
+        })
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -34,11 +57,10 @@ export default function Login() {
                 >
                     <Form.Item
                         name="username"
-                        
                         rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: '输入用户名',
                         },
                         ]}
                     >
@@ -47,7 +69,6 @@ export default function Login() {
 
                     <Form.Item
                     name="password"
-                    
                     rules={[
                         {
                         required: true,
