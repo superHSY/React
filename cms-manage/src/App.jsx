@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 // 引入组件
 import Header from './components/Header';
+import Aside from './components/Aside'
 
 
 const { Sider, Content } = Layout;
@@ -12,14 +13,12 @@ export default function App() {
   return (
     <Layout id='app'>
       <Header />
-      <Layout>
-        <Sider>Sider</Sider>
-        <Content>
-        <div>
-          <Outlet />
-        </div>
-        </Content>
-      </Layout>
+      <div className='container'>
+        <Aside />
+          <div className='container_box'>
+            <Outlet />
+          </div>
+      </div>
       <footer>Respect | Copyright &copy;
               2022 Author xxxx
       </footer>

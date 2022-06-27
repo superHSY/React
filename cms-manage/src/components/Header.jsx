@@ -29,7 +29,6 @@ export default function Header() {
       localStorage.clear() // 清除
       message.success('退出成功，返回登陆页面')
       setTimeout(() => navigate('/login'), 1500)
-      
     }
     
     const menu = (
