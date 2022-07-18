@@ -18,7 +18,7 @@ function getItem(label, key, icon, children, type) {
 export default function Aside() {
     const location = useLocation()
     const navigate = useNavigate()
-    const [defaultKey, setDefaultKey] = useState('/list')
+    const [defaultKey, setDefaultKey] = useState('')
 
     // 加入空数组模仿Mounted
     useEffect(() => {
