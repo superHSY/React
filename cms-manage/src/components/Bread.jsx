@@ -17,7 +17,7 @@ export default function Bread() {
     // 监听路由的路径
     useEffect(() => {
         switch(pathname) {
-            case "/list":
+            case "/listtable":
                 setBreadName('查看文章列表');
                 break;
             case "/edit":
@@ -33,10 +33,10 @@ export default function Bread() {
 
     return (
         <Breadcrumb>
-            <Breadcrumb.Item >
+            <Breadcrumb.Item href="/">
                 <HomeOutlined />
             </Breadcrumb.Item>
-            <Breadcrumb.Item href={pathname}>{breadName}</Breadcrumb.Item>
+            <Breadcrumb.Item >{breadName}</Breadcrumb.Item>
         </Breadcrumb>
     )
 }
